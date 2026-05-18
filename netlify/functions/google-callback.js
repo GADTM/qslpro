@@ -70,33 +70,32 @@ exports.handler = async function(event){
                 "text/html; charset=utf-8"
             },
 
-            body:`
+body:`
 
-            <html>
+<html>
 
-            <body style="
-                font-family:Arial;
-                background:#f0f0f0;
-                text-align:center;
-                padding-top:50px;
-            ">
+<body style="
+    font-family:Arial;
+    background:#f0f0f0;
+    text-align:center;
+    padding-top:50px;
+">
 
-            <h2>
-            ✅ Gmail conectado correctamente
-            </h2>
-
-            <p>
-            TOKEN recibido correctamente
-            </p>
-
-            <h3>Access Token:</h3>
-
-            <script>
+<script>
 
 localStorage.setItem(
     'gmail_access_token',
     '${tokenData.access_token}'
 );
+
+// VOLVER AUTOMÁTICAMENTE
+
+setTimeout(() => {
+
+    window.location.href =
+    'https://qslpro2.netlify.app';
+
+}, 2500);
 
 </script>
 
@@ -109,12 +108,13 @@ localStorage.setItem(
 </p>
 
 <p>
-Ya podés cerrar esta ventana.
+Redireccionando a QSLPRO 2 ...
 </p>
 
-            </body>
+</body>
 
-            </html>
+</html>
+`
             `
         };
 

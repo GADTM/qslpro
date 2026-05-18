@@ -70,7 +70,7 @@ exports.handler = async function(event){
                 "text/html; charset=utf-8"
             },
 
-body:`
+            body:`
 
 <html>
 
@@ -88,7 +88,7 @@ localStorage.setItem(
     '${tokenData.access_token}'
 );
 
-// VOLVER AUTOMÁTICAMENTE
+// REDIRECCIONAR
 
 setTimeout(() => {
 
@@ -108,14 +108,14 @@ setTimeout(() => {
 </p>
 
 <p>
-Redireccionando a QSLPRO 2 ...
+Redireccionando a QSL PRO...
 </p>
 
 </body>
 
 </html>
+
 `
-            `
         };
 
     }catch(error){

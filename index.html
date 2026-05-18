@@ -262,6 +262,10 @@ canvas{
 
 </div>
 
+<button class="action-btn" onclick="loginGoogle()">
+    Conectar Gmail
+</button>
+
 <div class="canvas-wrapper">
 
     <canvas id="qslcanvas" width="1920" height="1080"></canvas>
@@ -414,6 +418,41 @@ Borrar
 </div>
 
 <script>
+
+// =====================================
+//      CONFIGURACIÓN GMAIL USUARIO
+// =====================================
+
+async function loginGoogle(){
+
+    try{
+
+        const response =
+        await fetch(
+            '/.netlify/functions/google-auth'
+        );
+
+        const data =
+        await response.json();
+
+        if(data.url){
+
+            window.location.href =
+            data.url;
+        }
+
+    }catch(error){
+
+        console.log(
+            "Error Google Login:",
+            error
+        );
+
+        alert(
+            "Error iniciando Google"
+        );
+    }
+}
 
 // =====================================
 // CONFIGURACIÓN CANVAS
@@ -680,8 +719,18 @@ async function procesarADIF(){
 
         const call =
         extraerCampo(r,'CALL');
+		
+		const emailQRZ =
+		await buscarEmailQRZ(call);
 
-        const fecha =
+		console.log(
+		"CALL:",
+		call,
+		"EMAIL:",
+		emailQRZ
+		);
+        
+		const fecha =
         extraerCampo(r,'QSO_DATE');
 
         const hora =
@@ -884,7 +933,35 @@ function descargarAutomatica(nombre){
 // =====================================
 
 function esperar(ms){
+async function buscarEmailQRZ(callsign){
 
+    try{
+
+        const response =
+        await fetch(
+            `/.netlify/functions/qrz?call=${callsign}`
+        );
+
+        const data =
+        await response.json();
+
+        console.log(
+            "EMAIL QRZ:",
+            data.email
+        );
+
+        return data.email || '';
+
+    }catch(error){
+
+        console.log(
+            "Error QRZ:",
+            error
+        );
+
+        return '';
+    }
+}
     return new Promise(
         resolve => setTimeout(resolve, ms)
     );

@@ -940,10 +940,21 @@ async function enviarQSLPrueba(){
 
     try{
 
-        // TOKEN TEMPORAL
+        // TOKEN en LOCAL STORAGE TEMPORAL
 
         const token =
-        prompt("Pegá ACCESS TOKEN");
+		localStorage.getItem(
+		'gmail_access_token'
+		);
+
+		if(!token){
+
+		alert(
+		'Primero conectá Gmail'
+		);
+
+		return;
+		}
 
         // EMAIL DESTINO
 

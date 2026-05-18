@@ -304,6 +304,10 @@ Generar
 Descargar
 </button>
 
+<button class="action-btn" onclick="enviarQSLPrueba()">
+    Enviar QSL
+</button>
+
 <button class="delete-btn" onclick="borrarCampos()">
 Borrar
 </button>
@@ -926,6 +930,68 @@ function descargarAutomatica(nombre){
     link.click();
 
     document.body.removeChild(link);
+}
+
+// =====================================
+//         Envio QSL por Email
+// =====================================
+
+async function enviarQSLPrueba(){
+
+    try{
+
+        // TOKEN TEMPORAL
+
+        const token =
+        prompt("Pegá ACCESS TOKEN");
+
+        // EMAIL DESTINO
+
+        const destino =
+        prompt("Email destino");
+
+        // IMAGEN QSL
+
+        const imagen =
+        canvas.toDataURL("image/png");
+
+        // ENVIAR
+
+        const response =
+        await fetch(
+            '/.netlify/functions/send-qsl',
+            {
+                method:'POST',
+
+                headers:{
+                    'Content-Type':
+                    'application/json'
+                },
+
+                body:JSON.stringify({
+
+                    token:token,
+
+                    to:destino,
+
+                    image:imagen
+                })
+            }
+        );
+
+        const data =
+        await response.json();
+
+        console.log(data);
+
+        alert("QSL enviada");
+
+    }catch(error){
+
+        console.log(error);
+
+        alert("Error enviando");
+    }
 }
 
 // =====================================

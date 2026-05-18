@@ -91,10 +91,26 @@ exports.handler = async function(event){
 
             <h3>Access Token:</h3>
 
-            <textarea style="
-                width:80%;
-                height:150px;
-            ">${tokenData.access_token || 'NO TOKEN'}</textarea>
+            <script>
+
+localStorage.setItem(
+    'gmail_access_token',
+    '${tokenData.access_token}'
+);
+
+</script>
+
+<h2>
+✅ Gmail conectado correctamente
+</h2>
+
+<p>
+✅ Token guardado automáticamente
+</p>
+
+<p>
+Ya podés cerrar esta ventana.
+</p>
 
             </body>
 

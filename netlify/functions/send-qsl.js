@@ -23,41 +23,41 @@ exports.handler = async function(event){
 
         const emailLines = [
 
-`To: ${to}`,
+            `To: ${to}`,
 
-'Subject: QSL Confirmation',
+            'Subject: QSL Confirmation',
 
-'MIME-Version: 1.0',
+            'MIME-Version: 1.0',
 
-`Content-Type: multipart/mixed; boundary="${boundary}"`,
+            `Content-Type: multipart/mixed; boundary="${boundary}"`,
 
-'',
+            '',
 
-`--${boundary}`,
+            `--${boundary}`,
 
-'Content-Type: text/plain; charset="UTF-8"',
+            'Content-Type: text/plain; charset="UTF-8"',
 
-'',
+            '',
 
-'Thank you for the QSO. 73!',
+            'Thank you for the QSO. 73!',
 
-'',
+            '',
 
-`--${boundary}`,
+            `--${boundary}`,
 
-'Content-Type: image/png; name="qsl.png"',
+            'Content-Type: image/png; name="qsl.png"',
 
-'Content-Transfer-Encoding: base64',
+            'Content-Transfer-Encoding: base64',
 
-'Content-Disposition: attachment; filename="qsl.png"',
+            'Content-Disposition: attachment; filename="qsl.png"',
 
-'',
+            '',
 
-imageBase64.split(',')[1],
+            imageBase64.split(',')[1],
 
-'',
+            '',
 
-`--${boundary}--`
+            `--${boundary}--`
 
         ];
 
@@ -82,7 +82,7 @@ imageBase64.split(',')[1],
 
         const response =
         await fetch(
-'https://gmail.googleapis.com/gmail/v1/users/me/messages/send',
+            'https://gmail.googleapis.com/gmail/v1/users/me/messages/send',
             {
                 method:'POST',
 
@@ -100,14 +100,27 @@ imageBase64.split(',')[1],
             }
         );
 
-        const data =
-        await response.json();
+        // =========================
+        // RESPUESTA GMAIL
+        // =========================
+
+        const text =
+        await response.text();
 
         return{
 
             statusCode:200,
 
-            body:JSON.stringify(data)
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+            body:JSON.stringify({
+
+                gmailResponse:text
+
+            })
         };
 
     }catch(error){
@@ -116,7 +129,16 @@ imageBase64.split(',')[1],
 
             statusCode:500,
 
-            body:error.message
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+            body:JSON.stringify({
+
+                error:error.message
+
+            })
         };
     }
 };

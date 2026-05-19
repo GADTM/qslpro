@@ -692,6 +692,39 @@ function descargar(){
 }
 
 // =====================================
+//          BUSCA EMAIL EN QRZ
+// =====================================
+async function buscarEmailQRZ(callsign){
+
+    try{
+
+        const response =
+        await fetch(
+            `/.netlify/functions/qrz?call=${callsign}`
+        );
+
+        const data =
+        await response.json();
+
+        console.log(
+            'QRZ DATA:',
+            data
+        );
+
+        return data.email || '';
+
+    }catch(error){
+
+        console.log(
+            'Error QRZ:',
+            error
+        );
+
+        return '';
+    }
+}
+
+// =====================================
 //              LEER ADIF
 // =====================================
 
@@ -808,20 +841,93 @@ async function procesarADIF(){
 
         document.getElementById('qsl').value = 'PSE';
 
-        // GENERAR
+// GENERAR
 
-        generar();
+		generar();
 
-        // DESCARGAR
+// =========================
+//    EXTRAE EMAIL QRZ
+// =========================
 
-        descargarAutomatica(
-            call + "_" + fecha
+		const emailQRZ =
+		await buscarEmailQRZ(call);
+
+		console.log(
+		'EMAIL QRZ:',
+		emailQRZ
+		);
+
+// =========================
+// ENVIAR QSL AUTOMÁTICA
+// =========================
+
+		if(emailQRZ){
+
+		try{
+
+        const token =
+        localStorage.getItem(
+            'gmail_access_token'
         );
 
-        // ESPERA
+        const imagen =
+        canvas.toDataURL("image/png");
 
-        await esperar(500);
-    }
+        const response =
+        await fetch(
+            '/.netlify/functions/send-qsl',
+            {
+                method:'POST',
+
+                headers:{
+                    'Content-Type':
+                    'application/json'
+                },
+
+                body:JSON.stringify({
+
+                    token:token,
+
+                    to:emailQRZ,
+
+                    image:imagen
+                })
+            }
+        );
+
+        const resultado =
+        await response.json();
+
+        console.log(
+            'QSL enviada:',
+            resultado
+        );
+
+		}catch(error){
+
+        console.log(
+            'Error enviando:',
+            error
+        );
+		}
+		}else{
+
+		console.log(
+        'QRZ sin email:',
+        call
+		);
+		}
+
+// DESCARGA LOCAL
+
+		descargarAutomatica(
+		call + "_" + fecha
+		);
+
+// ESPERA
+
+		await esperar(1000);
+	}
 
     alert("Proceso terminado");
 }

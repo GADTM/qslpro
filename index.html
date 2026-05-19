@@ -274,7 +274,7 @@ canvas{
     alt="Login Gmail"
     onclick="loginGoogle()"
     style="
-        height:40px;
+        height:50px;
         cursor:pointer;
         transition:0.3s;
     "
@@ -710,39 +710,6 @@ function descargar(){
 }
 
 // =====================================
-//          BUSCA EMAIL EN QRZ
-// =====================================
-async function buscarEmailQRZ(callsign){
-
-    try{
-
-        const response =
-        await fetch(
-            `/.netlify/functions/qrz?call=${callsign}`
-        );
-
-        const data =
-        await response.json();
-
-        console.log(
-            'QRZ DATA:',
-            data
-        );
-
-        return data.email || '';
-
-    }catch(error){
-
-        console.log(
-            'Error QRZ:',
-            error
-        );
-
-        return '';
-    }
-}
-
-// =====================================
 //              LEER ADIF
 // =====================================
 
@@ -775,6 +742,10 @@ async function procesarADIF(){
         const call =
         extraerCampo(r,'CALL');
 		
+		// =========================
+		//    EXTRAE EMAIL QRZ
+		// =========================
+
 		const emailQRZ =
 		await buscarEmailQRZ(call);
 
@@ -862,18 +833,6 @@ async function procesarADIF(){
 // GENERAR
 
 		generar();
-
-// =========================
-//    EXTRAE EMAIL QRZ
-// =========================
-
-		const emailQRZ =
-		await buscarEmailQRZ(call);
-
-		console.log(
-		'EMAIL QRZ:',
-		emailQRZ
-		);
 
 // =========================
 // ENVIAR QSL AUTOMÁTICA
@@ -1134,35 +1093,7 @@ async function enviarQSLPrueba(){
 // =====================================
 
 function esperar(ms){
-async function buscarEmailQRZ(callsign){
 
-    try{
-
-        const response =
-        await fetch(
-            `/.netlify/functions/qrz?call=${callsign}`
-        );
-
-        const data =
-        await response.json();
-
-        console.log(
-            "EMAIL QRZ:",
-            data.email
-        );
-
-        return data.email || '';
-
-    }catch(error){
-
-        console.log(
-            "Error QRZ:",
-            error
-        );
-
-        return '';
-    }
-}
     return new Promise(
         resolve => setTimeout(resolve, ms)
     );

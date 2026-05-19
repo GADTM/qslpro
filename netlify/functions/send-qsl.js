@@ -39,7 +39,24 @@ exports.handler = async function(event){
 
             '',
 
-            'Thank you for the QSO. 73!',
+            `Estimado/a,
+
+				Es un placer confirmar nuestro QSO.
+				Adjunto encontrarás mi QSL digital.
+
+				Gracias por el contacto.
+
+				73's cordiales.
+
+
+			Dear OM/YL,
+
+				It is a pleasure to confirm our QSO.
+				Attached you will find my digital QSL card.
+
+				Thank you for the contact.
+
+				Best 73's.`,
 
             '',
 

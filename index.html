@@ -274,7 +274,7 @@ canvas{
     alt="Login Gmail"
     onclick="loginGoogle()"
     style="
-        height:40px;
+        height:50px;
         cursor:pointer;
         transition:0.3s;
     "
@@ -477,7 +477,7 @@ async function loginGoogle(){
 }
 
 // =====================================
-//         CONFIGURACIÓN CANVAS
+// CONFIGURACIÓN CANVAS
 // =====================================
 
 const canvas = document.getElementById('qslcanvas');
@@ -488,20 +488,20 @@ ctx.imageSmoothingEnabled = true;
 ctx.imageSmoothingQuality = "high";
 
 // =====================================
-//          RESOLUCIÓN FINAL QSL
+// RESOLUCIÓN FINAL QSL
 // =====================================
 
 const QSL_WIDTH = 1920;
 const QSL_HEIGHT = 1080;
 
 // =====================================
-//             IMAGEN FONDO
+// IMAGEN FONDO
 // =====================================
 
 let baseImage = new Image();
 
 // =====================================
-//       MEMBRETE PNG TRANSPARENTE
+// MEMBRETE PNG TRANSPARENTE
 // =====================================
 
 let membrete = new Image();
@@ -695,7 +695,7 @@ function generar(){
 }
 
 // =====================================
-//            DESCARGAR MANUAL
+//         DESCARGAR MANUAL
 // =====================================
 
 function descargar(){
@@ -708,7 +708,7 @@ function descargar(){
 
     link.click();
 }
-	
+
 // =====================================
 //          BUSCA EMAIL EN QRZ
 // =====================================
@@ -742,7 +742,7 @@ async function buscarEmailQRZ(callsign){
         return '';
     }
 }
-	
+
 // =====================================
 //              LEER ADIF
 // =====================================
@@ -869,7 +869,7 @@ async function procesarADIF(){
 		generar();
 
 // =========================
-//    ENVIAR QSL AUTOMÁTICA
+// ENVIAR QSL AUTOMÁTICA
 // =========================
 
 		if(emailQRZ){
@@ -931,9 +931,9 @@ async function procesarADIF(){
 
 // DESCARGA LOCAL (pausada por ahora)
 
-		// descargarAutomatica(
-		// call + "_" + fecha
-		// );
+	//	descargarAutomatica(
+	//	call + "_" + fecha
+	//	);
 
 // ESPERA
 
@@ -1050,33 +1050,61 @@ function descargarAutomatica(nombre){
 }
 
 // =====================================
-//         Envio QSL por Email
+// ENVÍO MANUAL consultando email de QRZ
 // =====================================
 
 async function enviarQSLPrueba(){
 
     try{
 
-        // TOKEN en LOCAL STORAGE TEMPORAL
+        // TOKEN GMAIL
 
         const token =
-		localStorage.getItem(
-		'gmail_access_token'
-		);
+        localStorage.getItem(
+            'gmail_access_token'
+        );
 
-		if(!token){
+        if(!token){
 
-		alert(
-		'Primero conectá Gmail'
-		);
+            alert(
+                'Primero conectá Gmail'
+            );
 
-		return;
-		}
+            return;
+        }
 
-        // EMAIL DESTINO
+        // CALLSIGN DESDE FORMULARIO
 
-        const destino =
-        prompt("Email destino");
+        const callsign =
+        document.getElementById('qso').value.trim();
+
+        if(!callsign){
+
+            alert(
+                'Ingrese un Callsign'
+            );
+
+            return;
+        }
+
+        // BUSCAR EMAIL EN QRZ
+
+        const emailQRZ =
+        await buscarEmailQRZ(callsign);
+
+        if(!emailQRZ){
+
+            alert(
+                'QRZ no posee email para ' + callsign
+            );
+
+            return;
+        }
+
+        console.log(
+            'EMAIL QRZ:',
+            emailQRZ
+        );
 
         // IMAGEN QSL
 
@@ -1100,7 +1128,7 @@ async function enviarQSLPrueba(){
 
                     token:token,
 
-                    to:destino,
+                    to:emailQRZ,
 
                     image:imagen
                 })
@@ -1112,13 +1140,17 @@ async function enviarQSLPrueba(){
 
         console.log(data);
 
-        alert("QSL enviada");
+        alert(
+            'QSL enviada a: ' + emailQRZ
+        );
 
     }catch(error){
 
         console.log(error);
 
-        alert("Error enviando");
+        alert(
+            'Error enviando'
+        );
     }
 }
 

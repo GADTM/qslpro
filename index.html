@@ -299,19 +299,19 @@ canvas{
 <div class="buttons-bar"> 
 
 <label for="imageLoader" class="upload-btn">
-    Cargar Imagen
+Cargar Imagen
 </label>
 
 <input type="file" id="imageLoader" hidden>
 
 <label for="adifFile" class="upload-btn">
-    Cargar ADIF
+Cargar ADIF
 </label>
 
 <input type="file" id="adifFile" accept=".adi,.adif" hidden>
 
 <button class="action-btn" onclick="procesarADIF()">
-    Enviar desde ADIF
+Enviar desde ADIF
 </button>
 
 <button class="button" onclick="generar()">
@@ -323,7 +323,7 @@ Descargar
 </button>
 
 <button class="action-btn" onclick="enviarQSLPrueba()">
-    Enviar QSL
+Enviar QSL
 </button>
 
 <button class="delete-btn" onclick="borrarCampos()">
@@ -477,7 +477,7 @@ async function loginGoogle(){
 }
 
 // =====================================
-// CONFIGURACIÓN CANVAS
+//        CONFIGURACIÓN CANVAS
 // =====================================
 
 const canvas = document.getElementById('qslcanvas');
@@ -488,20 +488,20 @@ ctx.imageSmoothingEnabled = true;
 ctx.imageSmoothingQuality = "high";
 
 // =====================================
-// RESOLUCIÓN FINAL QSL
+//         RESOLUCIÓN FINAL QSL
 // =====================================
 
 const QSL_WIDTH = 1920;
 const QSL_HEIGHT = 1080;
 
 // =====================================
-// IMAGEN FONDO
+//            IMAGEN FONDO
 // =====================================
 
 let baseImage = new Image();
 
 // =====================================
-// MEMBRETE PNG TRANSPARENTE
+//        MEMBRETE PNG TRANSPARENTE
 // =====================================
 
 let membrete = new Image();
@@ -869,7 +869,7 @@ async function procesarADIF(){
 		generar();
 
 // =========================
-// ENVIAR QSL AUTOMÁTICA
+//   ENVIAR QSL AUTOMÁTICA
 // =========================
 
 		if(emailQRZ){

@@ -15,7 +15,7 @@ exports.handler = async function(event){
         body.image;
 
         // =========================
-        // EMAIL MIME
+        //        EMAIL MIME
         // =========================
 
         const boundary =
@@ -41,22 +41,20 @@ exports.handler = async function(event){
 
             `Estimado/a,
 
-				Es un placer confirmar nuestro QSO.
-				Adjunto encontrarás mi QSL digital.
+			Es un placer confirmar nuestro QSO.
+			Adjunto encontrarás mi QSL digital.
 
-				Gracias por el contacto.
-
-				73's cordiales.
+			Gracias por el contacto.
+			73's cordiales.
 
 
 			Dear OM/YL,
 
-				It is a pleasure to confirm our QSO.
-				Attached you will find my digital QSL card.
+			It is a pleasure to confirm our QSO.
+			Attached you will find my digital QSL card.
 
-				Thank you for the contact.
-
-				Best 73's.`,
+			Thank you for the contact.
+			Best 73's.`,
 
             '',
 
@@ -82,7 +80,7 @@ exports.handler = async function(event){
         emailLines.join('\n');
 
         // =========================
-        // BASE64 URL SAFE
+        //      BASE64 URL SAFE
         // =========================
 
         const encodedEmail =
@@ -94,7 +92,7 @@ exports.handler = async function(event){
         .replace(/=+$/,'');
 
         // =========================
-        // ENVIAR GMAIL
+        //        ENVIAR GMAIL
         // =========================
 
         const response =
@@ -118,7 +116,7 @@ exports.handler = async function(event){
         );
 
         // =========================
-        // RESPUESTA GMAIL
+        //      RESPUESTA GMAIL
         // =========================
 
         const text =

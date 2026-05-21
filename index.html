@@ -1226,13 +1226,18 @@ async function enviarQSLPrueba(){
         );
 
         const data =
-        await response.json();
+		await response.json();
 
-        console.log(data);
+		console.log(
+    	'QSL enviada:',
+    	data
+		);
 
-        alert(
-            'QSL enviada a: ' + emailQRZ
-        );
+		actualizarContadorQSL();
+
+		alert(
+    	'QSL enviada a: ' + emailQRZ
+		);
 
     }catch(error){
 

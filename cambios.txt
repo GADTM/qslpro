@@ -1,11 +1,11 @@
 Cambios al 20/05/2026
-✅ procesamiento ADIF
-✅ <EOR> y <eor>
-✅ envío múltiple
-✅ QRZ lookup
+✅ Procesamiento ADIF de distintas plataformas, QRZ, ADIF MASTER, EGLogger, Cliente PEANUT, ETC.
+✅ Acepta fin de lineas <EOR> y <eor>
+✅ Envío múltiple
+✅ Busqueda de email en QRZ
 ✅ Gmail API
-✅ contador visual
-✅ envío manual
-✅ consola de progreso
-✅ cambio azul → verde
-✅ control de loops y variables
+✅ Contador visual de QSL Enviadas
+✅ Envío manual
+✅ Consola de progreso
+✅ Cambio Enviando Azul → QSL Enviadas en verde
+✅ Control de loops y variables

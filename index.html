@@ -909,6 +909,15 @@ async function procesarADIF(){
         const resultado =
         await response.json();
 
+		if(resultado.gmailResponse?.includes('"error"')){
+	    console.log(
+        'Error Gmail:',
+        resultado.gmailResponse
+    	);
+
+    	continue;
+		}
+			
         console.log(
             'QSL enviada:',
             resultado

@@ -85,14 +85,21 @@ exports.handler = async function(event){
 ">
 
 <script>
-
+//***************
+//  PEDIR TOKEN
+//***************
 localStorage.setItem(
     'gmail_access_token',
     '${tokenData.access_token}'
 );
+localStorage.setItem(
+    'gmail_refresh_token',
+    '${tokenData.refresh_token || ""}'
+);
 
+//***************
 // REDIRECCIONAR
-
+//***************
 setTimeout(() => {
 
     window.location.href =

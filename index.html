@@ -842,17 +842,16 @@ for(let i = 0; i < registros.length; i++){
     const r = registros[i];
 
     if(!r.trim()) continue;
-
-    console.log(
-`Enviando ${i+1}/${registros.length} -> ${call}`
-);
-
 		
         // EXTRAER CAMPOS
 
         const call =
         extraerCampo(r,'CALL');
-		
+  
+		console.log(
+		`Enviando ${i+1}/${registros.length} -> ${call}`
+		);
+	
 		// =========================
 		//    EXTRAE EMAIL QRZ
 		// =========================

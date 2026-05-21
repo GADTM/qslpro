@@ -346,13 +346,15 @@ Borrar
     border-radius:8px;
     padding:12px 25px;
     font-weight:bold;
-    cursor:default;
     font-size:16px;
     margin:5px;
 	min-width:220px;
     text-align:center;
     transition:0.4s;
     box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 ">
 0 QSL enviadas
 </div>
@@ -775,7 +777,51 @@ async function buscarEmailQRZ(callsign){
 // =====================================
 
 async function procesarADIF(){
+contadorEnviadas = 0;
 
+const contador =
+document.getElementById(
+'contadorQSL'
+);
+
+contador.style.background =
+'#1e88e5';
+
+contador.innerText =
+'Iniciando envío...';
+
+// =========================
+//      CONTADOR QSL
+// =========================
+
+let contadorEnviadas = 0;
+
+function actualizarContadorQSL(finalizado = false){
+
+    const contador =
+    document.getElementById(
+    'contadorQSL'
+    );
+
+    if(finalizado){
+
+        contador.style.background =
+        '#43a047';
+
+        contador.innerText =
+        `${contadorEnviadas} QSL enviadas ✔`;
+
+        return;
+    }
+
+    contadorEnviadas++;
+
+    contador.style.background =
+    '#1e88e5';
+
+    contador.innerText =
+    `${contadorEnviadas} QSL enviadas`;
+}
     const fileInput =
     document.getElementById('adifFile');
 
@@ -799,8 +845,8 @@ for(let i = 0; i < registros.length; i++){
     if(!r.trim()) continue;
 
     console.log(
-    `Enviando ${i+1} de ${registros.length}`
-    );
+`Enviando ${i+1}/${registros.length} -> ${call}`
+);
 
 		
         // EXTRAER CAMPOS
@@ -955,6 +1001,8 @@ for(let i = 0; i < registros.length; i++){
             resultado
         );
 
+        actualizarContadorQSL();
+
 		}catch(error){
 
         console.log(
@@ -980,7 +1028,8 @@ for(let i = 0; i < registros.length; i++){
 
 		await esperar(1000);
 	}
-
+    
+    actualizarContadorQSL(true);
     alert("Proceso terminado");
 }
 

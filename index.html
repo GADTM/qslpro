@@ -771,25 +771,6 @@ async function buscarEmailQRZ(callsign){
         return '';
     }
 }
-
-// =====================================
-//              LEER ADIF
-// =====================================
-
-async function procesarADIF(){
-contadorEnviadas = 0;
-
-const contador =
-document.getElementById(
-'contadorQSL'
-);
-
-contador.style.background =
-'#1e88e5';
-
-contador.innerText =
-'Iniciando envío...';
-
 // =========================
 //      CONTADOR QSL
 // =========================
@@ -822,6 +803,24 @@ function actualizarContadorQSL(finalizado = false){
     contador.innerText =
     `${contadorEnviadas} QSL enviadas`;
 }
+// =====================================
+//              LEER ADIF
+// =====================================
+
+async function procesarADIF(){
+contadorEnviadas = 0;
+
+const contador =
+document.getElementById(
+'contadorQSL'
+);
+
+contador.style.background =
+'#1e88e5';
+
+contador.innerText =
+'Iniciando envío...';
+
     const fileInput =
     document.getElementById('adifFile');
 

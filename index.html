@@ -765,14 +765,14 @@ async function procesarADIF(){
 
     const registros = texto.split(/<eor>\s*/i);
 
-    for(let i = 0; i < registros.length; i++){
+for(let i = 0; i < registros.length; i++){
 
-        const r = registros[i];
+    const r = registros[i];
 
-        if(!r.trim()) continue;
-	
-	console.log(
-`	`Enviando ${i+1} de ${registros.length}`
+    if(!r.trim()) continue;
+
+    console.log(
+    `Enviando ${i+1} de ${registros.length}`
     );
 
 		

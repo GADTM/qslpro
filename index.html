@@ -1227,6 +1227,33 @@ async function enviarQSLPrueba(){
         const data =
 		await response.json();
 
+		if(
+		data.gmailResponse?.includes(
+		'"UNAUTHENTICATED"'
+		)
+		){
+
+    	console.log(
+    	'Token vencido, renovando...'
+    	);
+
+    	const nuevoToken =
+    	await renovarToken();
+
+    	if(nuevoToken){
+
+        console.log(
+        'Token renovado'
+        );
+
+    	}else{
+
+        alert(
+        'Debe volver a conectar Gmail'
+        );
+    	}
+		}
+		
 		console.log(
     	'QSL enviada:',
     	data
@@ -1274,6 +1301,61 @@ function borrarCampos(){
     document.getElementById('rst').value = '';
     document.getElementById('qsl').value = '';
 
+}
+
+// ===========================
+//  Renovar el Token de Gmail
+// ===========================
+
+async function renovarToken(){
+
+    const refreshToken =
+    localStorage.getItem(
+        'gmail_refresh_token'
+    );
+
+    if(!refreshToken){
+
+        alert(
+            'Debe volver a conectar Gmail'
+        );
+
+        return null;
+    }
+
+    const response =
+    await fetch(
+        '/.netlify/functions/refresh-token',
+        {
+            method:'POST',
+
+            headers:{
+                'Content-Type':
+                'application/json'
+            },
+
+            body:JSON.stringify({
+
+                refresh_token:
+                refreshToken
+            })
+        }
+    );
+
+    const data =
+    await response.json();
+
+    if(data.access_token){
+
+        localStorage.setItem(
+            'gmail_access_token',
+            data.access_token
+        );
+
+        return data.access_token;
+    }
+
+    return null;
 }
 </script>
 

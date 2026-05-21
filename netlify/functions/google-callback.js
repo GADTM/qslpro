@@ -62,8 +62,10 @@ exports.handler = async function(event){
         const tokenData =
         await tokenResponse.json();
 
-        console.log(tokenData);
+        //console.log(tokenData);
 
+        console.log("TOKEN DATA:", tokenData);
+        
         return{
 
             statusCode:200,

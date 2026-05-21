@@ -1,0 +1,11 @@
+Cambios al 20/05/2026
+✅ procesamiento ADIF
+✅ <EOR> y <eor>
+✅ envío múltiple
+✅ QRZ lookup
+✅ Gmail API
+✅ contador visual
+✅ envío manual
+✅ consola de progreso
+✅ cambio azul → verde
+✅ control de loops y variables

@@ -770,6 +770,10 @@ async function procesarADIF(){
         const r = registros[i];
 
         if(!r.trim()) continue;
+	
+		console.log(
+    	Enviando ${i+1} de ${registros.length}`
+    	);
 
         // EXTRAER CAMPOS
 

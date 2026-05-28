@@ -9,3 +9,5 @@ Cambios al 20/05/2026
 ✅ Consola de progreso
 ✅ Cambio Enviando Azul → QSL Enviadas en verde
 ✅ Control de loops y variables
+Cambios al 28/05/2026
+✅ Se agrega la opción de cargar la propia SD Manualmente o que se rellene desde el ADIF

@@ -224,10 +224,16 @@ canvas{
     box-sizing:border-box;
     width:100%;
 }
+
+/* Referencia más ancho */
+.referencia-ancha{
+    grid-column: span 4;
+}
+
 /* TO RADIO más ancho */
 
 .grande{
-    grid-column:span 1;
+    grid-column:span 4;
 }
 
 /* CELULAR */
@@ -439,6 +445,11 @@ Borrar
         <label>QSL</label>
         <input type="text" id="qsl">
     </div>
+	
+	<div class="campo referencia-ancha">
+    <label>Referencia</label>
+    <input type="text" id="COMMENT">
+	</div>
 
 </div>
 
@@ -669,7 +680,7 @@ function generar(){
 
     ctx.textBaseline = 'middle';
 
-    ctx.font = 'bold 42px Arial';
+    ctx.font = 'bold 40px Arial';
 
     // =====================================
     //           POSICIONES TEXTO
@@ -678,7 +689,13 @@ function generar(){
     // MI SD
 
     ctx.fillText(
-        document.getElementById('STATION_CALLSIGN').value || '', 580, 916
+        document.getElementById('STATION_CALLSIGN').value || '', 380, 916
+    );
+	
+	// REFERENCIA
+
+    ctx.fillText(
+        document.getElementById('COMMENT').value || '', 1065, 916
     );
 	
 	// CALL
@@ -861,6 +878,9 @@ for(let i = 0; i < registros.length; i++){
 		
 		const call =
         extraerCampo(r,'CALL');
+		
+		const COMMENT =
+		extraerCampo(r,'COMMENT');
   
 		console.log(
 		`Enviando ${i+1}/${registros.length} -> ${call}`
@@ -937,6 +957,8 @@ for(let i = 0; i < registros.length; i++){
         // RELLENAR FORMULARIO
         
 		document.getElementById('STATION_CALLSIGN').value = STATION_CALLSIGN;
+		
+		document.getElementById('COMMENT').value = COMMENT;
 		
 		document.getElementById('qso').value = call;
 
@@ -1307,6 +1329,7 @@ function esperar(ms){
 function borrarCampos(){
 
     document.getElementById('STATION_CALLSIGN').value = '';
+	document.getElementById('COMMENT').value = '';
 	document.getElementById('qso').value = '';
     document.getElementById('day').value = '';
     document.getElementById('month').value = '';

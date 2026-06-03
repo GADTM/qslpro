@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <!--- Genera el llenado de la QSL desde un ADIF o Manual --->
-<!---     Creado por Fernando LW3DFA @Copyright 2026     --->
-<!--- Con consulta a QRZ.COM y envío automático de QSL --->
+<!--- Creado por Fernando LW3DFA @Copyright 2026 V2.0    --->
+<!---  Con consulta a QRZ.COM y envío automático de QSL  --->
 
 <head>
 <meta charset="UTF-8">
@@ -267,6 +267,19 @@ canvas{
     >
 
 </div>
+
+<div id="estadoLogin" style="
+background:#dc3545;
+color:white;
+padding:12px;
+border-radius:8px;
+text-align:center;
+font-weight:bold;
+margin-bottom:15px;
+">
+🔒 Debe conectarse con Gmail para utilizar el sistema
+</div>
+
 <!-- BOTON GOOGLE -->
 <div style="
     width:100%;
@@ -479,12 +492,67 @@ Borrar
 
 <div style="text-align:center; margin-top:15px;">
 
-<h4>&copy Copyright 2026 - LW3DFA</h4>
+<h4>&copy Copyright 2026 V2.0 - LW3DFA</h4>
 </div>
 
 </div>
 
 <script>
+// =====================================
+//         VERIFICA LOGIN GMAIL 
+// =====================================
+
+
+function verificarLoginGoogle(){
+
+    const token =
+    localStorage.getItem(
+        'gmail_access_token'
+    );
+
+    if(token){
+
+        document.getElementById('estadoLogin').innerHTML =
+        '✅ Gmail conectado correctamente';
+
+        document.getElementById('estadoLogin').style.background =
+        '#28a745';
+
+        return true;
+    }
+
+    document.getElementById('estadoLogin').innerHTML =
+    '🔒 Debe conectarse con Gmail para utilizar el sistema';
+
+    document.getElementById('estadoLogin').style.background =
+    '#dc3545';
+
+    return false;
+}
+
+window.onload = verificarLoginGoogle;
+
+// =====================================
+//            ACCESO PERMITIDO 
+// =====================================
+function accesoPermitido(){
+
+    const token =
+    localStorage.getItem(
+        'gmail_access_token'
+    );
+
+    if(!token){
+
+        alert(
+            '⚠ Debe conectarse con Gmail antes de utilizar QSL PRO HD'
+        );
+
+        return false;
+    }
+
+    return true;
+}
 
 // =====================================
 //      CONFIGURACIÓN GMAIL USUARIO
@@ -520,6 +588,7 @@ async function loginGoogle(){
         );
     }
 }
+
 
 // =====================================
 //        CONFIGURACIÓN CANVAS
@@ -572,6 +641,11 @@ membrete.onload = function (){
 
 document.getElementById('imageLoader').addEventListener('change', function(e){
 
+	 if(!accesoPermitido()){
+        this.value = '';
+        return;
+    }
+	
     const file = e.target.files[0];
 
     if(!file){
@@ -628,6 +702,8 @@ document.getElementById('imageLoader').addEventListener('change', function(e){
 // =====================================
 
 function generar(){
+
+if(!accesoPermitido()) return;
 
     // VERIFICAR IMAGEN
 
@@ -837,6 +913,8 @@ function actualizarContadorQSL(finalizado = false){
 
 async function procesarADIF(){
 contadorEnviadas = 0;
+
+if(!accesoPermitido()) return;
 
 const contador =
 document.getElementById(
